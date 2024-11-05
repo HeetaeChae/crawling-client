@@ -1,13 +1,31 @@
 import React from 'react';
-import { FormControlLabel, Switch } from '@mui/material';
+import { FormControlLabel, IconButton, Switch } from '@mui/material';
 import { useThemeStore } from 'store/useThemeStore';
 import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
+import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 
 const label = { inputProps: { 'aria-label': 'Size switch demo' } };
 
 function ThemeSwicher() {
+  const { deviceWidth } = useDeviceWidthStore();
   const { theme, setTheme } = useThemeStore();
+
+  const isMobile = deviceWidth <= 600;
   const isDarkMode = theme === 'dark';
+
+  const themeIcon = isDarkMode ? (
+    <DarkModeOutlined sx={{ mt: !isMobile ? 0.5 : 0 }} />
+  ) : (
+    <LightModeOutlined sx={{ mt: !isMobile ? 0.5 : 0 }} />
+  );
+
+  if (isMobile) {
+    return (
+      <IconButton size="medium" onClick={() => setTheme()} color="inherit">
+        {themeIcon}
+      </IconButton>
+    );
+  }
 
   return (
     <FormControlLabel
@@ -19,13 +37,7 @@ function ThemeSwicher() {
           onChange={() => setTheme()}
         />
       }
-      label={
-        isDarkMode ? (
-          <DarkModeOutlined sx={{ mt: 0.5 }} />
-        ) : (
-          <LightModeOutlined sx={{ mt: 0.5 }} />
-        )
-      }
+      label={themeIcon}
     />
   );
 }

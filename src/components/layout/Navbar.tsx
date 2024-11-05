@@ -1,29 +1,17 @@
 import React from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import ThemeSwicher from 'components/ThemeSwicher';
-import AMNavMenu from 'components/AMNavMenu';
-import YCNavMenu from 'components/YCNavMenu';
+import NavMenu from './NavMenu';
 
 function Navbar() {
   return (
     <Box sx={{ flexGlow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="sticky" elevation={0}>
         <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, textAlign: 'start' }}
-          >
+          <Typography variant="h6" component="div">
             MUI
           </Typography>
-          <Box sx={{ display: 'flex', gap: 5 }}>
-            <Box sx={{ display: 'flex' }}>
-              <AMNavMenu />
-              <YCNavMenu />
-            </Box>
-            <ThemeSwicher />
-          </Box>
+          <NavMenu />
         </Toolbar>
       </AppBar>
     </Box>

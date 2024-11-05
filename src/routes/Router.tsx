@@ -1,4 +1,5 @@
 import Layout from 'components/layout/Layout';
+import { ROUTE_PATHS } from 'constants/routePaths';
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
@@ -13,11 +14,15 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/affiliate-marketing',
+        path: ROUTE_PATHS.aliAffiliate,
         element: <PrivateRoute />,
       },
       {
-        path: '/youtube-channel',
+        path: ROUTE_PATHS.coupangPartners,
+        element: <PrivateRoute />,
+      },
+      {
+        path: ROUTE_PATHS.dramaReview,
         element: <PrivateRoute />,
       },
     ],
