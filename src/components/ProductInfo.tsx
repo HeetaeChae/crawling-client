@@ -1,25 +1,27 @@
 import React from 'react';
 import { Box, Skeleton } from '@mui/material';
-import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
+import ContentTitle from './ui/ContentTitle';
+import ContentContainer from './ui/ContentContainer';
+import ProductInfoCard from './ProductInfoCard';
 
-function ProductInfo() {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+interface ProductInfoProps {
+  productInfos: any[] | null;
+  cardSize: number;
+}
+
+function ProductInfo({ productInfos, cardSize }: ProductInfoProps) {
+  if (!productInfos) {
+    return null;
+  }
 
   return (
     <Box>
-      <Box sx={{ fontWeight: '600', mb: 2 }} fontSize="large">
-        상품 정보
-      </Box>
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 2 : 3 }}
-      >
-        <Skeleton height={150} animation="wave" variant="rounded" />
-        <Skeleton height={150} animation="wave" variant="rounded" />
-        <Skeleton height={150} animation="wave" variant="rounded" />
-        <Skeleton height={150} animation="wave" variant="rounded" />
-        <Skeleton height={150} animation="wave" variant="rounded" />
-      </Box>
+      <ContentTitle title="키워드로 추출한 상품 정보" />
+      <ContentContainer>
+        {productInfos.map((item, index) => (
+          <ProductInfoCard key={index} item={item} cardSize={cardSize} />
+        ))}
+      </ContentContainer>
     </Box>
   );
 }

@@ -7,7 +7,7 @@ interface ContentTitleProps {
   subTitle?: string;
 }
 
-function ContentTitle({ title, subTitle }: ContentTitleProps) {
+function TitleTypography({ title, subTitle }: ContentTitleProps) {
   const { deviceWidth } = useDeviceWidthStore();
   const isMobile = deviceWidth <= 600;
 
@@ -20,9 +20,9 @@ function ContentTitle({ title, subTitle }: ContentTitleProps) {
       >
         {title}
       </Typography>
-      <Box sx={{ mt: isMobile ? 1 : 2 }}>{subTitle}</Box>
+      <Box sx={{ mt: isMobile ? 0.5 : 1 }}>{subTitle}</Box>
     </Box>
   );
 }
 
-export default ContentTitle;
+export default TitleTypography;

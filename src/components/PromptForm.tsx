@@ -1,8 +1,10 @@
 import React, { FormEvent } from 'react';
 import { useForm } from 'hooks/useForm';
-import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
-import { Box, Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { AFFILIATE_MARKETING_PROMPTS } from 'constants/prompts';
+import ContentContainer from './ui/ContentContainer';
+import ContentTitle from './ui/ContentTitle';
+import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
 
 interface PromptFormProps {
   name: string;
@@ -16,9 +18,6 @@ interface PromptFormValues {
 }
 
 function PromptForm({ name, onUpdateData }: PromptFormProps) {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
-
   const { values, handleChangeInput } = useForm<PromptFormValues>({
     initialValues: {
       prompt1: AFFILIATE_MARKETING_PROMPTS.prompt1,
@@ -28,19 +27,14 @@ function PromptForm({ name, onUpdateData }: PromptFormProps) {
   });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    //
     e.preventDefault();
     onUpdateData(name, e);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box sx={{ fontWeight: '600', mb: 2 }} fontSize="large">
-        요청 프롬프트
-      </Box>
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column', gap: isMobile ? 2 : 3 }}
-      >
+      <ContentTitle title="AI에게 요청할 프롬프트" />
+      <ContentContainer>
         <TextField
           variant="outlined"
           rows={5}
@@ -66,15 +60,8 @@ function PromptForm({ name, onUpdateData }: PromptFormProps) {
           value={values.prompt3}
           onChange={(e) => handleChangeInput('prompt3', e.target.value)}
         />
-        <Button
-          variant="contained"
-          size="large"
-          sx={!isMobile ? { flex: 0.5, ml: 'auto' } : {}}
-          type="submit"
-        >
-          AI에게 스크립트 요청하기
-        </Button>
-      </Box>
+        <FlexibleSubmitButton label="AI에게 스크립트 요청하기" />
+      </ContentContainer>
     </form>
   );
 }

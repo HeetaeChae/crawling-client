@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Button } from '@mui/material';
 import { useMenuContext } from './Menu';
-import { SvgIconComponent } from '@mui/icons-material';
 
 interface MenuTogglerProps {
   label?: string;

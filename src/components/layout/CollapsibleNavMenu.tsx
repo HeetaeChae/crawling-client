@@ -1,7 +1,7 @@
 import React from 'react';
-import Menu from 'components/common/Menu';
-import MenuList from 'components/common/MenuList';
-import MenuToggler from 'components/common/MenuToggler';
+import Menu from 'components/Menu';
+import MenuList from 'components/MenuList';
+import MenuToggler from 'components/MenuToggler';
 import ThemeSwicher from 'components/ThemeSwicher';
 import { AFFILIATE_MARKETING_MENU, YOUTUBE_CHANNEL_MENU } from 'constants/menu';
 import { Box, Divider } from '@mui/material';
