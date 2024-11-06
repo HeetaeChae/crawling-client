@@ -1,4 +1,4 @@
-export const aliAffiliateDummyDatas = [
+export const aliProductInfosDummyData = [
   {
     title: '삼성 올뉴 건조기',
     originPrice: '643,000원',
@@ -70,3 +70,5 @@ export const aliAffiliateDummyDatas = [
     ],
   },
 ];
+
+export const coupangProductInfosDummyData = [];

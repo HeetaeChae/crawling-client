@@ -8,6 +8,7 @@ import { useLifting } from 'hooks/useLifting';
 import { useLoading } from 'hooks/useLoading';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 import ContentLoader from 'components/ContentLoader';
+import AiScript from 'components/AiScript';
 
 export interface LiftingDatas {
   productInfos: null | any[];
@@ -24,6 +25,7 @@ function AliAffiliate() {
   const isMobile = deviceWidth <= 600;
   const cardSize = isMobile ? 125 : 180;
   const promptSize = 150;
+  const scriptSize = 200;
 
   const { datas, handleUpdateData } = useLifting<LiftingDatas>({
     initialDatas: {
@@ -37,6 +39,8 @@ function AliAffiliate() {
       aiScript: false,
     },
   });
+
+  console.log(datas, loadings);
 
   const loadProductInfoAndPromptForm = loadings.productInfos;
   const showProductInfoAndPromptForm =
@@ -86,6 +90,14 @@ function AliAffiliate() {
             />
           </>
         )}
+        {loadAiScript && (
+          <ContentLoader
+            title="AI가 알리 상품 제휴마케팅에서 사용될 스크립트를 작성하고 있습니다..."
+            type="script"
+            skeletonSize={scriptSize}
+          />
+        )}
+        {showAiScript && <AiScript aiScript={datas.aiScript as string} />}
       </Box>
     </Box>
   );

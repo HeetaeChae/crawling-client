@@ -30,7 +30,7 @@ function ContentLoader({ title, type, skeletonSize }: ContentLoaderProps) {
           <Skeleton key={index} variant="rounded" height={skeletonSize} />
         ));
       case 'script':
-        return;
+        return <Skeleton variant="rounded" height={skeletonSize} />;
       default:
         return;
     }

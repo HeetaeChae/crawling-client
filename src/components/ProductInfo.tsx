@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Skeleton } from '@mui/material';
+import { Box, Button, Skeleton } from '@mui/material';
 import ContentTitle from './ui/ContentTitle';
 import ContentContainer from './ui/ContentContainer';
 import ProductInfoCard from './ProductInfoCard';
+import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
 
 interface ProductInfoProps {
   productInfos: any[] | null;
@@ -17,6 +18,9 @@ function ProductInfo({ productInfos, cardSize }: ProductInfoProps) {
         {productInfos?.map((item, index) => (
           <ProductInfoCard key={index} item={item} cardSize={cardSize} />
         ))}
+        <Button variant="outlined" size="large">
+          상품 이미지 저장하기
+        </Button>
       </ContentContainer>
     </Box>
   );

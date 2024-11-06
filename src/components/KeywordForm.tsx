@@ -3,8 +3,7 @@ import { TextField } from '@mui/material';
 import { useForm } from 'hooks/useForm';
 import ContentContainer from './ui/ContentContainer';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
-import { aliAffiliateDummyDatas } from 'dummy/productInfos';
-import { truncate } from 'fs/promises';
+import { aliProductInfosDummyData } from 'dummy/productInfos';
 
 interface KeywordFormValues {
   keyword: string;
@@ -35,7 +34,7 @@ function KeywordForm({
     onToggleLoading(name, true);
     // dummy 데이터를 받음.
     setTimeout(() => {
-      const dummyProductInfos = aliAffiliateDummyDatas;
+      const dummyProductInfos = aliProductInfosDummyData;
       onUpdateData(name, dummyProductInfos);
       onToggleLoading(name, false);
     }, 5000);

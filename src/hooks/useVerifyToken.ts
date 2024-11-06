@@ -1,4 +1,4 @@
-import { verifyToken } from 'apis/verifyToken';
+import { verifyTokenApi } from 'apis/verifyTokenApi';
 import { useEffect, useState } from 'react';
 
 export function useVerifyToken(token: string | null) {
@@ -11,9 +11,10 @@ export function useVerifyToken(token: string | null) {
     }
 
     const checkToken = async () => {
-      const isVerified = await verifyToken(token);
+      const isVerified = await verifyTokenApi(token);
       setIsVerifiedToken(isVerified);
     };
+
     checkToken();
   }, []);
 

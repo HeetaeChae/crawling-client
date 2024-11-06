@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const verifyToken = async (token: string) => {
+export const verifyTokenApi = async (token: string) => {
   try {
     const response = await axios.post(
       '/api/verify-token',

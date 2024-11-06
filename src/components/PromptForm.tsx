@@ -5,6 +5,7 @@ import { AFFILIATE_MARKETING_PROMPTS } from 'constants/prompts';
 import ContentContainer from './ui/ContentContainer';
 import ContentTitle from './ui/ContentTitle';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
+import { aliAiScriptDummyData } from 'dummy/aiScript';
 
 interface PromptFormProps {
   name: string;
@@ -39,9 +40,10 @@ function PromptForm({
     onToggleLoading(name, true);
     // dummy 데이터를 받음.
     setTimeout(() => {
-      onUpdateData(name, e);
+      const dummyAiScript = aliAiScriptDummyData;
+      onUpdateData(name, dummyAiScript);
       onToggleLoading(name, false);
-    }, 3000);
+    }, 5000);
   };
 
   return (
