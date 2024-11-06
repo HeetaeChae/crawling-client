@@ -2,7 +2,13 @@ import React from 'react';
 import { Button } from '@mui/material';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 
-function FlexibleSubmitButton({ label }: { label: string }) {
+function FlexibleSubmitButton({
+  label,
+  valid,
+}: {
+  label: string;
+  valid: boolean;
+}) {
   const { deviceWidth } = useDeviceWidthStore();
   const isMobile = deviceWidth <= 600;
 
@@ -12,6 +18,7 @@ function FlexibleSubmitButton({ label }: { label: string }) {
       size="large"
       sx={!isMobile ? { flex: 0.5, ml: 'auto' } : {}}
       type="submit"
+      disabled={!valid}
     >
       {label}
     </Button>

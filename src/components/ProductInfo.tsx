@@ -10,15 +10,11 @@ interface ProductInfoProps {
 }
 
 function ProductInfo({ productInfos, cardSize }: ProductInfoProps) {
-  if (!productInfos) {
-    return null;
-  }
-
   return (
     <Box>
       <ContentTitle title="키워드로 추출한 상품 정보" />
       <ContentContainer>
-        {productInfos.map((item, index) => (
+        {productInfos?.map((item, index) => (
           <ProductInfoCard key={index} item={item} cardSize={cardSize} />
         ))}
       </ContentContainer>

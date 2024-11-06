@@ -9,6 +9,8 @@ import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
 interface PromptFormProps {
   name: string;
   onUpdateData: (name: string, newData: any) => void;
+  onToggleLoading: (name: string, isLoading: boolean) => void;
+  validButton: boolean;
 }
 
 interface PromptFormValues {
@@ -17,7 +19,12 @@ interface PromptFormValues {
   prompt3: string;
 }
 
-function PromptForm({ name, onUpdateData }: PromptFormProps) {
+function PromptForm({
+  name,
+  onUpdateData,
+  onToggleLoading,
+  validButton,
+}: PromptFormProps) {
   const { values, handleChangeInput } = useForm<PromptFormValues>({
     initialValues: {
       prompt1: AFFILIATE_MARKETING_PROMPTS.prompt1,
@@ -28,7 +35,13 @@ function PromptForm({ name, onUpdateData }: PromptFormProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onUpdateData(name, e);
+
+    onToggleLoading(name, true);
+    // dummy 데이터를 받음.
+    setTimeout(() => {
+      onUpdateData(name, e);
+      onToggleLoading(name, false);
+    }, 3000);
   };
 
   return (
@@ -60,7 +73,10 @@ function PromptForm({ name, onUpdateData }: PromptFormProps) {
           value={values.prompt3}
           onChange={(e) => handleChangeInput('prompt3', e.target.value)}
         />
-        <FlexibleSubmitButton label="AI에게 스크립트 요청하기" />
+        <FlexibleSubmitButton
+          label="AI에게 스크립트 요청하기"
+          valid={validButton}
+        />
       </ContentContainer>
     </form>
   );

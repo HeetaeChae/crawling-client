@@ -4,6 +4,7 @@ import { useForm } from 'hooks/useForm';
 import ContentContainer from './ui/ContentContainer';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
 import { aliAffiliateDummyDatas } from 'dummy/productInfos';
+import { truncate } from 'fs/promises';
 
 interface KeywordFormValues {
   keyword: string;
@@ -12,9 +13,16 @@ interface KeywordFormValues {
 interface KeywordFormProps {
   name: string;
   onUpdateData: (name: string, newData: any) => void;
+  onToggleLoading: (name: string, isLoading: boolean) => void;
+  validButton: boolean;
 }
 
-function KeywordForm({ name, onUpdateData }: KeywordFormProps) {
+function KeywordForm({
+  name,
+  onUpdateData,
+  onToggleLoading,
+  validButton,
+}: KeywordFormProps) {
   const { values, handleChangeInput } = useForm<KeywordFormValues>({
     initialValues: {
       keyword: '',
@@ -24,11 +32,13 @@ function KeywordForm({ name, onUpdateData }: KeywordFormProps) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // dummy 데이터를 일단 받음.
+    onToggleLoading(name, true);
+    // dummy 데이터를 받음.
     setTimeout(() => {
       const dummyProductInfos = aliAffiliateDummyDatas;
       onUpdateData(name, dummyProductInfos);
-    }, 1000);
+      onToggleLoading(name, false);
+    }, 5000);
   };
 
   return (
@@ -42,7 +52,7 @@ function KeywordForm({ name, onUpdateData }: KeywordFormProps) {
           autoFocus
           onChange={(e) => handleChangeInput('keyword', e.target.value)}
         />
-        <FlexibleSubmitButton label="상품정보 추출하기" />
+        <FlexibleSubmitButton label="상품정보 추출하기" valid={validButton} />
       </ContentContainer>
     </form>
   );
