@@ -15,6 +15,9 @@ function App() {
       theme={createTheme({
         palette: {
           mode: theme,
+          ...(theme === 'light'
+            ? { background: { default: 'white', paper: '#f5f5f5' } }
+            : { background: { default: 'black', paper: '#1a1a1a' } }),
         },
       })}
     >

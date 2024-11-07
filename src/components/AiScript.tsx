@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Paper, TextField } from '@mui/material';
+import { Box, Paper, TextField, useTheme } from '@mui/material';
 import ContentTitle from './ui/ContentTitle';
 import { LoopOutlined, Psychology } from '@mui/icons-material';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
@@ -9,21 +9,22 @@ interface AiScriptProps {
 }
 
 function AiScript({ aiScript }: AiScriptProps) {
+  const theme = useTheme();
   const { deviceWidth } = useDeviceWidthStore();
   const isMobile = deviceWidth <= 600;
 
-  const paperBorderRadius = isMobile
+  const scriptBorderRadius = isMobile
     ? {
         borderTopLeftRadius: 0,
-        borderTopRightRadius: 15,
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
+        borderTopRightRadius: 20,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
       }
     : {
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 15,
+        borderBottomRightRadius: 20,
       };
 
   return (
@@ -37,30 +38,19 @@ function AiScript({ aiScript }: AiScriptProps) {
           gap: isMobile ? 1 : 3,
         }}
       >
-        <LoopOutlined
-          sx={{
-            animation: 'spin 2s linear infinite',
-            '@keyframes spin': {
-              '0%': {
-                transform: 'rotate(360deg)',
-              },
-              '100%': {
-                transform: 'rotate(0deg)',
-              },
+        <Psychology sx={{ color: 'gray' }} fontSize="large" />
+        <TextField
+          fullWidth
+          InputProps={{
+            style: {
+              textAlign: 'justify',
+              backgroundColor: theme.palette.background.paper,
+              ...scriptBorderRadius,
             },
           }}
+          multiline
+          value={aiScript}
         />
-        <Paper
-          elevation={3}
-          sx={{
-            width: '100%',
-            py: 2,
-            px: 3,
-            ...paperBorderRadius,
-          }}
-        >
-          {aiScript}
-        </Paper>
       </Box>
     </Box>
   );

@@ -13,14 +13,14 @@ interface KeywordFormProps {
   name: string;
   onUpdateData: (name: string, newData: any) => void;
   onToggleLoading: (name: string, isLoading: boolean) => void;
-  validButton: boolean;
+  valid: boolean;
 }
 
 function KeywordForm({
   name,
   onUpdateData,
   onToggleLoading,
-  validButton,
+  valid,
 }: KeywordFormProps) {
   const { values, handleChangeInput } = useForm<KeywordFormValues>({
     initialValues: {
@@ -50,8 +50,9 @@ function KeywordForm({
           value={values.keyword}
           autoFocus
           onChange={(e) => handleChangeInput('keyword', e.target.value)}
+          disabled={!valid}
         />
-        <FlexibleSubmitButton label="상품정보 추출하기" valid={validButton} />
+        <FlexibleSubmitButton label="상품정보 추출하기" valid={valid} />
       </ContentContainer>
     </form>
   );

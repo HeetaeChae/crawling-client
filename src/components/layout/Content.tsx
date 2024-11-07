@@ -4,13 +4,7 @@ import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 
-function Content({
-  bgColor,
-  shadow,
-}: {
-  bgColor: 'white' | 'black';
-  shadow: 1 | 3;
-}) {
+function Content() {
   const { deviceWidth } = useDeviceWidthStore();
   const isMobile = deviceWidth <= 600;
 

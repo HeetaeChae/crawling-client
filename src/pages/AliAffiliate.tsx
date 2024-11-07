@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Skeleton } from '@mui/material';
+import { Box, Button, Skeleton } from '@mui/material';
 import ProductInfo from 'components/ProductInfo';
 import TitleTypography from 'components/ui/TitleTypography';
 import KeywordForm from 'components/KeywordForm';
@@ -10,8 +10,16 @@ import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 import ContentLoader from 'components/ContentLoader';
 import AiScript from 'components/AiScript';
 
+export interface AliProductInfo {
+  title: string;
+  discountRate: string;
+  originPrice: string;
+  titlePrice: string;
+  reviews: string[];
+}
+
 export interface LiftingDatas {
-  productInfos: null | any[];
+  productInfos: null | AliProductInfo[];
   aiScript: null | string;
 }
 
@@ -40,14 +48,18 @@ function AliAffiliate() {
     },
   });
 
-  console.log(datas, loadings);
+  const isExistProductInfos = !!datas.productInfos;
+  const isExistAiScript = !!datas.aiScript;
 
-  const loadProductInfoAndPromptForm = loadings.productInfos;
+  const isLoadingProductInfos = loadings.productInfos;
+  const isLoadingAiScript = loadings.aiScript;
+
+  const loadProductInfoAndPromptForm = isLoadingProductInfos;
   const showProductInfoAndPromptForm =
-    !loadings.productInfos && !!datas.productInfos;
+    !isLoadingProductInfos && isExistProductInfos;
 
-  const loadAiScript = loadings.aiScript;
-  const showAiScript = !loadings.aiScript && !!datas.aiScript;
+  const loadAiScript = isLoadingAiScript;
+  const showAiScript = !isLoadingAiScript && isExistAiScript;
 
   return (
     <Box>
@@ -60,7 +72,7 @@ function AliAffiliate() {
           name="productInfos"
           onUpdateData={handleUpdateData}
           onToggleLoading={handleToggleLoading}
-          validButton={!loadings.productInfos}
+          valid={!isLoadingProductInfos && !isExistProductInfos}
         />
         {loadProductInfoAndPromptForm && (
           <>
@@ -98,6 +110,11 @@ function AliAffiliate() {
           />
         )}
         {showAiScript && <AiScript aiScript={datas.aiScript as string} />}
+        {!!datas.productInfos && (
+          <Button size="large" color="error" variant="contained">
+            컨텐츠 다시 생성하기
+          </Button>
+        )}
       </Box>
     </Box>
   );
