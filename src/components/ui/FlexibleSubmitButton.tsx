@@ -5,18 +5,22 @@ import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 function FlexibleSubmitButton({
   label,
   valid,
+  type,
 }: {
   label: string;
   valid: boolean;
+  type?: 'fulfilled' | 'outlined';
 }) {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
+
+  const halfButton = !isMobile ? { flex: 0.5, ml: 'auto' } : {};
+  const buttonType = type === 'outlined' ? 'text' : 'contained';
 
   return (
     <Button
-      variant="contained"
+      variant={buttonType}
       size="large"
-      sx={!isMobile ? { flex: 0.5, ml: 'auto' } : {}}
+      sx={halfButton}
       type="submit"
       disabled={!valid}
     >

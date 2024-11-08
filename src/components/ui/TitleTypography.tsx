@@ -8,8 +8,7 @@ interface ContentTitleProps {
 }
 
 function TitleTypography({ title, subTitle }: ContentTitleProps) {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
 
   return (
     <Box sx={{ my: isMobile ? 3 : 5 }}>

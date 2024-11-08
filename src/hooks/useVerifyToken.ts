@@ -11,8 +11,8 @@ export function useVerifyToken(token: string | null) {
     }
 
     const checkToken = async () => {
-      const isVerified = await verifyTokenApi(token);
-      setIsVerifiedToken(isVerified);
+      const isVerified = await verifyTokenApi();
+      // setIsVerifiedToken(isVerified);
     };
 
     checkToken();

@@ -17,28 +17,15 @@ const CustomMenu = Object.assign(
 
 function DropdownNavMenu() {
   return (
-    <Box
-      sx={{
-        ml: 3,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexGrow: 1,
-      }}
-    >
-      <Box>
-        <CustomMenu.Wrapper>
-          <CustomMenu.Toggler label={AFFILIATE_MARKETING_MENU.label} />
-          <CustomMenu.List menuItems={AFFILIATE_MARKETING_MENU.menuItems} />
-        </CustomMenu.Wrapper>
-        <CustomMenu.Wrapper>
-          <CustomMenu.Toggler label={YOUTUBE_CHANNEL_MENU.label} />
-          <CustomMenu.List menuItems={YOUTUBE_CHANNEL_MENU.menuItems} />
-        </CustomMenu.Wrapper>
-      </Box>
-      <Box>
-        <ThemeSwicher />
-      </Box>
+    <Box>
+      <CustomMenu.Wrapper>
+        <CustomMenu.Toggler label={AFFILIATE_MARKETING_MENU.label} />
+        <CustomMenu.List menuItems={AFFILIATE_MARKETING_MENU.menuItems} />
+      </CustomMenu.Wrapper>
+      <CustomMenu.Wrapper>
+        <CustomMenu.Toggler label={YOUTUBE_CHANNEL_MENU.label} />
+        <CustomMenu.List menuItems={YOUTUBE_CHANNEL_MENU.menuItems} />
+      </CustomMenu.Wrapper>
     </Box>
   );
 }

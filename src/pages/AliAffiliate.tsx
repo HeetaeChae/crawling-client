@@ -9,6 +9,7 @@ import { useLoading } from 'hooks/useLoading';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 import ContentLoader from 'components/ContentLoader';
 import AiScript from 'components/AiScript';
+import FlexibleSubmitButton from 'components/ui/FlexibleSubmitButton';
 
 export interface AliProductInfo {
   title: string;
@@ -29,8 +30,7 @@ export interface Loadings {
 }
 
 function AliAffiliate() {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
   const cardSize = isMobile ? 125 : 180;
   const promptSize = 150;
   const scriptSize = 200;
@@ -110,10 +110,12 @@ function AliAffiliate() {
           />
         )}
         {showAiScript && <AiScript aiScript={datas.aiScript as string} />}
-        {!!datas.productInfos && (
-          <Button size="large" color="error" variant="contained">
-            컨텐츠 다시 생성하기
-          </Button>
+        {isExistProductInfos && (
+          <FlexibleSubmitButton
+            label="상품 키워드 다시 입력하기"
+            valid
+            type="outlined"
+          />
         )}
       </Box>
     </Box>

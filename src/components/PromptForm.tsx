@@ -1,11 +1,12 @@
 import React, { FormEvent } from 'react';
 import { useForm } from 'hooks/useForm';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { AFFILIATE_MARKETING_PROMPTS } from 'constants/prompts';
 import ContentContainer from './ui/ContentContainer';
 import ContentTitle from './ui/ContentTitle';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
 import { aliAiScriptDummyData } from 'dummy/aiScript';
+import { Add } from '@mui/icons-material';
 
 interface PromptFormProps {
   name: string;
@@ -75,6 +76,9 @@ function PromptForm({
           value={values.prompt3}
           onChange={(e) => handleChangeInput('prompt3', e.target.value)}
         />
+        <Button variant="outlined" size="large">
+          <Add />
+        </Button>
         <FlexibleSubmitButton
           label="AI에게 스크립트 요청하기"
           valid={validButton}

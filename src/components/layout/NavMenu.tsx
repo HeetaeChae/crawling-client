@@ -4,8 +4,7 @@ import CollapsibleNavMenu from './CollapsibleNavMenu';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 
 function NavMenu() {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
 
   if (isMobile) {
     return <CollapsibleNavMenu />;

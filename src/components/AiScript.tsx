@@ -10,8 +10,7 @@ interface AiScriptProps {
 
 function AiScript({ aiScript }: AiScriptProps) {
   const theme = useTheme();
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
 
   const scriptBorderRadius = isMobile
     ? {

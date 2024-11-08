@@ -3,8 +3,7 @@ import { Box } from '@mui/material';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
 
 function ContentContainer({ children }: { children: ReactNode }) {
-  const { deviceWidth } = useDeviceWidthStore();
-  const isMobile = deviceWidth <= 600;
+  const { isMobile } = useDeviceWidthStore();
 
   return (
     <Box
