@@ -6,11 +6,13 @@ import Router from 'routes/Router';
 import { useThemeStore } from 'store/useThemeStore';
 import { useDeviceWidth } from 'hooks/useDeviceWidth';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useVerifyToken } from 'hooks/useVerifyToken';
 
 function App() {
   useDeviceWidth();
-
+  const isVerifiedToken = useVerifyToken();
   const { theme } = useThemeStore();
+
   const queryClient = new QueryClient();
 
   return (
@@ -26,7 +28,7 @@ function App() {
         })}
       >
         <CssBaseline />
-        <Router />
+        <Router isVerifiedToken={isVerifiedToken} />
       </ThemeProvider>
     </QueryClientProvider>
   );

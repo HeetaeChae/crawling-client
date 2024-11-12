@@ -1,3 +1,7 @@
+import {
+  getLocalStorageItem,
+  setLocalStorageItem,
+} from 'utils/handleLocalStorage';
 import { create } from 'zustand';
 
 type Theme = 'dark' | 'light';
@@ -8,11 +12,13 @@ interface ThemeState {
 }
 
 export const useThemeStore = create<ThemeState>((set) => ({
-  theme: (window.localStorage.getItem('theme') as Theme) || 'light',
+  theme: (getLocalStorageItem('theme') as Theme) || 'light',
   setTheme: () => {
     const newTheme =
-      window.localStorage.getItem('theme') === 'light' ? 'dark' : 'light';
+      getLocalStorageItem('theme') === 'light' ? 'dark' : 'light';
+    // store 업데이트
     set({ theme: newTheme });
-    window.localStorage.setItem('theme', newTheme);
+    // localStorage 업데이트
+    setLocalStorageItem('theme', newTheme);
   },
 }));

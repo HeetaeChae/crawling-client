@@ -1,16 +1,43 @@
 import React from 'react';
-import { Box, Paper, TextField, useTheme } from '@mui/material';
+import { Box, TextField, useTheme } from '@mui/material';
 import ContentTitle from './ui/ContentTitle';
-import { LoopOutlined, Psychology } from '@mui/icons-material';
+import { Psychology } from '@mui/icons-material';
 import { useDeviceWidthStore } from 'store/useDeviceWidthStore';
+import ContentLoader from './ContentLoader';
+import { createTextByMarketingCategory } from 'utils/createTextByCategory';
+import { AiScriptRes } from 'types/aiScript';
+import { MarketingCategory } from 'types/marketingCategory';
 
 interface AiScriptProps {
-  aiScript: string;
+  marketingCategory: MarketingCategory;
+  aiScriptData: AiScriptRes | undefined;
+  aiScriptIsLoading: boolean;
 }
 
-function AiScript({ aiScript }: AiScriptProps) {
+function AiScript({
+  marketingCategory,
+  aiScriptData,
+  aiScriptIsLoading,
+}: AiScriptProps) {
   const theme = useTheme();
   const { isMobile } = useDeviceWidthStore();
+  const scriptSize = isMobile ? 200 : 230;
+
+  const textByCategory = createTextByMarketingCategory(marketingCategory);
+
+  if (!aiScriptData && !aiScriptIsLoading) {
+    return null;
+  }
+
+  if (aiScriptIsLoading) {
+    return (
+      <ContentLoader
+        title={`AI가 ${textByCategory} 상품 제휴마케팅에서 사용될 스크립트를 작성하고 있습니다...`}
+        type="script"
+        skeletonSize={scriptSize}
+      />
+    );
+  }
 
   const scriptBorderRadius = isMobile
     ? {
@@ -48,7 +75,7 @@ function AiScript({ aiScript }: AiScriptProps) {
             },
           }}
           multiline
-          value={aiScript}
+          value={aiScriptData?.script}
         />
       </Box>
     </Box>

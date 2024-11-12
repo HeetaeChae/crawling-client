@@ -3,24 +3,24 @@ import { TextField } from '@mui/material';
 import { useForm } from 'hooks/useForm';
 import ContentContainer from './ui/ContentContainer';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
-import { aliProductInfosDummyData } from 'dummy/productInfos';
+import { ProductInfoReq } from 'types/productInfo';
+import { createTextByMarketingCategory } from 'utils/createTextByCategory';
+import { MarketingCategory } from 'types/marketingCategory';
 
 interface KeywordFormValues {
   keyword: string;
 }
 
 interface KeywordFormProps {
-  name: string;
-  onUpdateData: (name: string, newData: any) => void;
-  onToggleLoading: (name: string, isLoading: boolean) => void;
-  valid: boolean;
+  marketingCategory: MarketingCategory;
+  validForm: boolean;
+  productInfoMutate: ({ marketingCategory, keyword }: ProductInfoReq) => void;
 }
 
 function KeywordForm({
-  name,
-  onUpdateData,
-  onToggleLoading,
-  valid,
+  marketingCategory,
+  validForm,
+  productInfoMutate,
 }: KeywordFormProps) {
   const { values, handleChangeInput } = useForm<KeywordFormValues>({
     initialValues: {
@@ -28,16 +28,11 @@ function KeywordForm({
     },
   });
 
+  const textByCategory = createTextByMarketingCategory(marketingCategory);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    onToggleLoading(name, true);
-    // dummy 데이터를 받음.
-    setTimeout(() => {
-      const dummyProductInfos = aliProductInfosDummyData;
-      onUpdateData(name, dummyProductInfos);
-      onToggleLoading(name, false);
-    }, 5000);
+    productInfoMutate({ marketingCategory, keyword: values.keyword });
   };
 
   return (
@@ -46,13 +41,13 @@ function KeywordForm({
         <TextField
           label="상품 키워드"
           variant="outlined"
-          placeholder="상품 키워드를 입력해주세요."
+          placeholder={`${textByCategory}에서 검색할 상품 키워드를 입력해주세요.`}
           value={values.keyword}
           autoFocus
           onChange={(e) => handleChangeInput('keyword', e.target.value)}
-          disabled={!valid}
+          disabled={!validForm}
         />
-        <FlexibleSubmitButton label="상품정보 추출하기" valid={valid} />
+        <FlexibleSubmitButton label="상품정보 추출하기" valid={validForm} />
       </ContentContainer>
     </form>
   );

@@ -5,14 +5,15 @@ import { AFFILIATE_MARKETING_PROMPTS } from 'constants/prompts';
 import ContentContainer from './ui/ContentContainer';
 import ContentTitle from './ui/ContentTitle';
 import FlexibleSubmitButton from './ui/FlexibleSubmitButton';
-import { aliAiScriptDummyData } from 'dummy/aiScript';
 import { Add } from '@mui/icons-material';
+import { AiScriptReq } from 'types/aiScript';
+import { MarketingCategory } from 'types/marketingCategory';
 
 interface PromptFormProps {
-  name: string;
-  onUpdateData: (name: string, newData: any) => void;
-  onToggleLoading: (name: string, isLoading: boolean) => void;
+  marketingCategory: MarketingCategory;
   validButton: boolean;
+  aiScriptMutate: ({ marketingCategory, prompt }: AiScriptReq) => void;
+  productInfoPrompt: string;
 }
 
 interface PromptFormValues {
@@ -22,10 +23,10 @@ interface PromptFormValues {
 }
 
 function PromptForm({
-  name,
-  onUpdateData,
-  onToggleLoading,
+  marketingCategory,
   validButton,
+  aiScriptMutate,
+  productInfoPrompt,
 }: PromptFormProps) {
   const { values, handleChangeInput } = useForm<PromptFormValues>({
     initialValues: {
@@ -37,14 +38,9 @@ function PromptForm({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    onToggleLoading(name, true);
-    // dummy 데이터를 받음.
-    setTimeout(() => {
-      const dummyAiScript = aliAiScriptDummyData;
-      onUpdateData(name, dummyAiScript);
-      onToggleLoading(name, false);
-    }, 5000);
+    // prompt를 생성. 입력된 prompt + produnct info prompt
+    const resultPrompt = `${values.prompt1} ${values.prompt2} ${values.prompt3} ${productInfoPrompt}`;
+    aiScriptMutate({ marketingCategory, prompt: resultPrompt });
   };
 
   return (

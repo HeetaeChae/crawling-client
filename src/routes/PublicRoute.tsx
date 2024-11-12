@@ -1,23 +1,29 @@
 import React from 'react';
-import { redirect } from 'react-router-dom';
+import { Navigate, redirect } from 'react-router-dom';
 import { useVerifyToken } from 'hooks/useVerifyToken';
+import { ROUTE_PATHS } from 'constants/routePaths';
+import Loading from 'components/ui/Loading';
 
-function PublicRoute() {
-  const token = window.localStorage.getItem('token') || null;
-  const isVerifiedToken = useVerifyToken(token);
+interface PublicRouteProps {
+  publicComponent: any;
+  isVerifiedToken: boolean | null;
+}
+
+function PublicRoute({ publicComponent, isVerifiedToken }: PublicRouteProps) {
+  // const isVerifiedToken = false;
 
   if (isVerifiedToken === null) {
     // loading 출력
-    return <div>loading</div>;
+    return <Loading />;
   }
 
   if (isVerifiedToken) {
     // 리다이렉션
-    return <div>redirect</div>;
+    return <Navigate to={ROUTE_PATHS.logout} />;
   }
 
   // public route 출력
-  return <div>public</div>;
+  return publicComponent;
 }
 
 export default PublicRoute;

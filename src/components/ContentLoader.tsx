@@ -19,18 +19,19 @@ function ContentLoader({ title, type, skeletonSize }: ContentLoaderProps) {
     delay: 100,
   });
 
+  const generateSkeleton = (length: number) =>
+    createEmptyArray(length).map((_, index) => (
+      <Skeleton key={index} variant="rounded" height={skeletonSize} />
+    ));
+
   const getSkeletonByType = (type: Type) => {
     switch (type) {
       case 'card':
-        return createEmptyArray(5).map((_, index) => (
-          <Skeleton key={index} variant="rounded" height={skeletonSize} />
-        ));
+        return generateSkeleton(5);
       case 'prompt':
-        return createEmptyArray(3).map((_, index) => (
-          <Skeleton key={index} variant="rounded" height={skeletonSize} />
-        ));
+        return generateSkeleton(3);
       case 'script':
-        return <Skeleton variant="rounded" height={skeletonSize} />;
+        return generateSkeleton(1);
       default:
         return;
     }
