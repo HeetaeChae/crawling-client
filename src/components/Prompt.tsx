@@ -33,11 +33,9 @@ function Prompt({
     );
   }
 
-  if (!productInfoData) {
-    return null;
-  }
-
-  const productInfoPrompt = createProductInfoPrompt(productInfoData);
+  const productInfoPrompt = createProductInfoPrompt(
+    productInfoData as ProductInfoRes,
+  );
 
   return (
     <PromptForm

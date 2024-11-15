@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useForm } from 'hooks/useForm';
 import { Button, TextField } from '@mui/material';
 import { AFFILIATE_MARKETING_PROMPTS } from 'constants/prompts';
@@ -36,11 +36,24 @@ function PromptForm({
     },
   });
 
+  const [additionalPrompts, setAdditionalPrompts] = useState<
+    { key: string; value: string }[]
+  >([]);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // prompt를 생성. 입력된 prompt + produnct info prompt
     const resultPrompt = `${values.prompt1} ${values.prompt2} ${values.prompt3} ${productInfoPrompt}`;
     aiScriptMutate({ marketingCategory, prompt: resultPrompt });
+  };
+
+  const handleAddPrompt = () => {
+    const newPromptKey = `프롬프트 #${Object.keys(values).length + 1 + additionalPrompts.length}`;
+    const newPromptValue = '';
+    setAdditionalPrompts((prev) => [
+      ...prev,
+      { key: newPromptKey, value: newPromptValue },
+    ]);
   };
 
   return (
@@ -72,7 +85,17 @@ function PromptForm({
           value={values.prompt3}
           onChange={(e) => handleChangeInput('prompt3', e.target.value)}
         />
-        <Button variant="outlined" size="large">
+        {additionalPrompts.map((item, index) => (
+          <TextField
+            key={index}
+            variant="outlined"
+            rows={5}
+            multiline
+            label={item.key}
+            value={item.value}
+          />
+        ))}
+        <Button variant="outlined" size="large" onClick={handleAddPrompt}>
           <Add />
         </Button>
         <FlexibleSubmitButton

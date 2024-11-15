@@ -11,8 +11,8 @@ interface UseFormProps<T> {
 export function useForm<T>({ initialValues }: UseFormProps<T>) {
   const [values, setValues] = useState<T>(initialValues);
 
-  const handleChangeInput = (name: keyof T, text: string) => {
-    setValues((prev) => ({ ...prev, [name]: text }));
+  const handleChangeInput = (name: keyof T, newValue: string | number) => {
+    setValues((prev) => ({ ...prev, [name]: newValue }));
   };
 
   return { values, handleChangeInput };
