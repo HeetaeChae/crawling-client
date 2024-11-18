@@ -1,5 +1,4 @@
 import React from 'react';
-import { AiScriptReq } from 'types/aiScript';
 import { MarketingCategory } from 'types/marketingCategory';
 import { ProductInfoRes } from 'types/productInfo';
 import { createProductInfoPrompt } from 'utils/createProductInfoPrompt';
@@ -9,17 +8,17 @@ import PromptForm from './PromptForm';
 interface PromptProps {
   marketingCategory: MarketingCategory;
   validButton: boolean;
-  aiScriptMutate: ({ marketingCategory, prompt }: AiScriptReq) => void;
   productInfoData: ProductInfoRes | undefined;
   productInfoIsLoading: boolean;
+  onUpdateData: (name: string, newData: string) => void;
 }
 
 function Prompt({
   marketingCategory,
   validButton,
-  aiScriptMutate,
   productInfoData,
   productInfoIsLoading,
+  onUpdateData,
 }: PromptProps) {
   if (productInfoIsLoading) {
     const promptSize = 150;
@@ -41,8 +40,8 @@ function Prompt({
     <PromptForm
       marketingCategory={marketingCategory}
       validButton={validButton}
-      aiScriptMutate={aiScriptMutate}
       productInfoPrompt={productInfoPrompt}
+      onUpdateData={onUpdateData}
     />
   );
 }

@@ -5,19 +5,12 @@ import KeywordForm from 'components/KeywordForm';
 import AiScript from 'components/AiScript';
 import FlexibleSubmitButton from 'components/ui/FlexibleSubmitButton';
 import Prompt from 'components/Prompt';
-import { useAiScript } from 'hooks/useAiScript';
 import useProductInfo from 'hooks/useProductInfo';
 import { MARKETING_CATEGORIES } from 'constants/marketingCategories';
 import MarketingPageHeader from 'components/MarketingPageHeader';
+import useSharedData from 'hooks/useSharedData';
 
 function CoupangPartners() {
-  const { aiScriptMitation } = useAiScript();
-  const {
-    data: aiScriptData,
-    isPending: aiScriptIsLoading,
-    mutate: aiScriptMutate,
-  } = aiScriptMitation;
-
   const { productInfoMutation } = useProductInfo();
   const {
     data: productInfoData,
@@ -26,6 +19,12 @@ function CoupangPartners() {
   } = productInfoMutation;
 
   const marketingCategory = MARKETING_CATEGORIES.coupangPartners;
+
+  const { datas, handleUpdateData } = useSharedData({
+    initialDatas: {
+      completedPromptScript: null,
+    },
+  });
 
   return (
     <Box>
@@ -44,15 +43,11 @@ function CoupangPartners() {
         <Prompt
           marketingCategory={marketingCategory}
           validButton
-          aiScriptMutate={aiScriptMutate}
           productInfoData={productInfoData}
           productInfoIsLoading={productInfoIsLoading}
+          onUpdateData={handleUpdateData}
         />
-        <AiScript
-          marketingCategory={marketingCategory}
-          aiScriptData={aiScriptData}
-          aiScriptIsLoading={aiScriptIsLoading}
-        />
+        <AiScript aiScriptData={datas.completedPromptScript} />
         <FlexibleSubmitButton
           label="상품 키워드 다시 입력하기"
           valid
